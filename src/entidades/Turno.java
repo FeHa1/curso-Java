@@ -1,6 +1,9 @@
 package entidades;
 
-public class Turno extends Medico{
+public class Turno {
+	//el medico y el usuario se van a conectar por medio de 'dni' y 'legMedico' 
+	private int dni;
+	private int legMedico;
 	private int turno;
 	private String fecha;
 	private String hora;
@@ -8,12 +11,29 @@ public class Turno extends Medico{
 	public Turno() {
 		
 	}
+	
+	public Turno(int dni, int legMedico, int turno, String fecha, String hora) {
+		this.setDni(dni);
+		this.setLegMedico(legMedico);
+		this.setTurno(turno);
+		this.setFecha(fecha);
+		this.setHora(hora);
+	}
 
-	public Turno(int dni, String password, String nya, String fecha_nac, String obraSocial, int tipo_usu, int legMedico, boolean cobra, int turno, String fecha, String hora) {
-		super(dni, password, nya, fecha_nac, obraSocial, tipo_usu, turno, cobra);
-		this.turno = turno;
-		this.fecha = fecha; 
-		this.hora = hora; 
+	public int getDni() {
+		return dni;
+	}
+
+	public void setDni(int dni) {
+		this.dni = dni;
+	}
+
+	public int getLegMedico() {
+		return legMedico;
+	}
+
+	public void setLegMedico(int legMedico) {
+		this.legMedico = legMedico;
 	}
 
 	public int getTurno() {
@@ -39,5 +59,6 @@ public class Turno extends Medico{
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
+	
 	
 }

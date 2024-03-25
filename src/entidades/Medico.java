@@ -34,4 +34,5 @@ public class Medico extends Usuario{
 	public void setCobra(boolean cobra) {
 		this.cobra = cobra;
 	}
+	
 }
