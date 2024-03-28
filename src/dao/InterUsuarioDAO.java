@@ -12,4 +12,4 @@ public interface InterUsuarioDAO {
 	
 }
 
-//lo mismo voy a tener que hacer para los turnos y los medicos
+//NO USO MAS ÉSTA INTERFACE, CUANDO TERMINE CON USUARIO Y TURNO LA BORRO
