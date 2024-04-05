@@ -1,6 +1,5 @@
 package dao;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -16,7 +15,7 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
 		Connection c = DBManager.connect();
 		
 		try {
-            Statement s = c.createStatement();
+			java.sql.Statement s = c.createStatement();
             String sql = insertSqlString(x);
             s.executeUpdate(sql);
             c.commit();
@@ -47,7 +46,7 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
 	public void modificar(T x) throws DAOException{
 		Connection c = DBManager.connect();
         try {
-            Statement s = c.createStatement();
+        	java.sql.Statement s = c.createStatement();
             String sql = updateSqlString(x);
             s.executeUpdate(sql);
             c.commit();
@@ -60,6 +59,7 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
                 e.printStackTrace();
                 throw new DAOException(e1.getMessage());
             }
+            
         } finally {
             try {
                 c.close();
@@ -67,16 +67,18 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
                 e1.printStackTrace();
                 throw new DAOException("(DAO>LA CONEXION CON LA BASE DE DATOS NO FUE CERRADA CORRECTAMENTE)" + e1.getMessage());
             }
-      }
+        }
 	}
 	
 	protected abstract String BusquedaSimpleSqlString(int x);
+	
 	protected abstract T resultsetToObject(ResultSet rs) throws SQLException;
+	
 	public T mostrar(int x) throws DAOException {
 		String sql = BusquedaSimpleSqlString(x);
         Connection c = DBManager.connect();
         try {
-            Statement s = c.createStatement();
+        	java.sql.Statement s = c.createStatement();
             ResultSet rs = s.executeQuery(sql);
 
             
@@ -107,7 +109,7 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
 		String sql = BorrarStringSql(x);
 		Connection c = DBManager.connect();
         try {
-            Statement s = c.createStatement();
+        	java.sql.Statement s = c.createStatement();
             s.executeUpdate(sql);
             c.commit();
         } 
@@ -139,7 +141,7 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
         String sql = listaStringSql();
         Connection c = DBManager.connect();
         try {
-            Statement s = c.createStatement();
+        	java.sql.Statement s = c.createStatement();
             ResultSet rs = s.executeQuery(sql);
             
             return rsToList(rs);
@@ -152,6 +154,7 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
                 e1.printStackTrace();
                 throw new DAOException(e1.getMessage());
             }
+            
         } finally {
             try {
                 c.close();
@@ -160,6 +163,5 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
                 throw new DAOException("(DAO>LA CONEXION CON LA BASE DE DATOS NO FUE CERRADA CORRECTAMENTE)" + e1.getMessage());
             }
         }
-        
 	}	
 }
