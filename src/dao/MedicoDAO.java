@@ -91,13 +91,5 @@ public class MedicoDAO extends BaseDAO<Medico>{
 	protected String BorrarStringSql(int x) {
 		
 		return "DELETE FROM medicos WHERE legMedico = '" + x + "'";
-	}
-
-	@Override
-	public Medico recuperar(int enti) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
+	}	
 }

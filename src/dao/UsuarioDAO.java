@@ -88,23 +88,5 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 	@Override
 	protected String BorrarStringSql(int dni) {
 		return "DELETE FROM USERS1 WHERE dni = '" + dni + "'";
-	}
-
-	@Override
-	public Usuario recuperar(int enti) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

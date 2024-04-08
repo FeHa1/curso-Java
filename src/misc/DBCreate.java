@@ -90,8 +90,6 @@ public class DBCreate {
 		}catch(SQLException e){
 			
 			System.out.println("no se creo la tabla:"+e.getMessage());
-			
-			
 		}
 	}
 	

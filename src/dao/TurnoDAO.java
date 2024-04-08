@@ -89,7 +89,4 @@ public class TurnoDAO extends BaseDAO<Turno>{
 	protected String BorrarStringSql(int turno) {
 		return "DELETE FROM turnos WHERE turno = '" + turno + "'";
 	}
-
-
-
 }

@@ -9,6 +9,5 @@ public interface InterBaseDAO<T> {
 	void eliminar(int enti) throws DAOException, ServiceException;
 	void modificar(T x) throws DAOException;
 	T mostrar(int x) throws DAOException;
-	T recuperar(int enti) throws DAOException;
 	List<T> listaTodosLosObjetos() throws DAOException;
 }
