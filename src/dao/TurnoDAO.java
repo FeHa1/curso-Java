@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Turno;
@@ -20,24 +21,23 @@ public class TurnoDAO extends BaseDAO<Turno>{
 		return ("INSERT INTO TURNO (dni, legMedico, turno, fecha, hora) VALUES ('"	+ dni + "', '" + legMedico + "', '" + turno + "', '" + fecha + "', '" + hora + "')");
 	}
 
-	/*
+	
 	@Override
 	protected String updateSqlString(Turno UnTurno) {
-		int dniPaciente=UnTurno.getDniPaciente();
-		int legajoMedico=UnTurno.getLegajoMedico();
+		int dni = UnTurno.getDni();
+		int legMedico = UnTurno.getLegMedico();
+		int turno = UnTurno.getTurno();
 		String fecha = UnTurno.getFecha();
-		String hora=UnTurno.getHora();
-		int nroConsultorio=UnTurno.getNroConsultorio();
-		int iDTurno=UnTurno.getIDTurno();
-		String str="UPDATE TURNOS SET dnipaciente = '" + dniPaciente 
-				+ "', legajomedico = '" + legajoMedico 
+		String hora = UnTurno.getHora();
+		String str="UPDATE TURNOS SET dni = '" + dni 
+				+ "', legMedico = '" + legMedico 
 				+ "', fecha = '" + fecha 
 				+ "', hora = '" + hora 
-				+ "', nroconsultorio = '" + nroConsultorio 
-				+ "' WHERE idturno = '" + iDTurno + "'";
+				+ "' WHERE turno = '" + turno + "'";
 
 		return str;
-	*/
+	}
+	
 	
 	@Override
 	protected String BusquedaSimpleSqlString(int turno) {
@@ -46,40 +46,38 @@ public class TurnoDAO extends BaseDAO<Turno>{
 	
 	
 	//éste ResultSet está relacionado con la parte del código que necesito que tomi me aclare
-	/*
 	@Override
 	protected Turno resultsetToObject(ResultSet rs) throws SQLException {
 		if (rs.next()) {
-			int iDTurno=rs.getInt("idturno");
-			int dniPaciente=rs.getInt("dnipaciente");
-    		int legajoMedico=rs.getInt("legajomedico");
+			int turno = rs.getInt("turno");
+			int dni = rs.getInt("dni");
+    		int legMedico=rs.getInt("legMedico");
     		String fecha = rs.getString("fecha");
-    		String hora= rs.getString("hora");
-    		int nroConsultorio=rs.getInt("nroconsultorio");
-        Turno u = new Turno(dniPaciente, legajoMedico, fecha, hora,nroConsultorio,iDTurno);
+    		String hora = rs.getString("hora");
+        Turno u = new Turno(dni, legMedico, turno, fecha, hora);
         return u;}
 		else {return null;}
 	}
-	*/
+	
 	
 	
 	//éste ResultSet está relacionado con la parte del código que necesito que tomi me aclare
-	/*
+	
 	@Override
 	protected List<Turno> rsToList(ResultSet rs) throws SQLException{
 		List<Turno> resultado = new ArrayList<>();
         while (rs.next()) {
-        	int dniPaciente=rs.getInt("dnipaciente");
-    		int legajoMedico=rs.getInt("legajomedico");
+        	int dni = rs.getInt("dni");
+    		int legMedico = rs.getInt("legMedico");
+    		int turno = rs.getInt("turno");
     		String fecha = rs.getString("fecha");
-    		String hora= rs.getString("hora");
-    		int nroConsultorio=rs.getInt("nroconsultorio");
-    		int iDTurno=rs.getInt("idturno");
-            Turno u = new Turno(dniPaciente, legajoMedico, fecha, hora,nroConsultorio,iDTurno);
+    		String hora = rs.getString("hora");
+            Turno u = new Turno(dni, legMedico, turno, fecha, hora);
             resultado.add(u);
-        }   
+        }
+        
 		return resultado;	
-	*/
+	}
 
 	@Override
 	protected String listaStringSql() {

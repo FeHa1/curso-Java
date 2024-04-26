@@ -1,3 +1,4 @@
+package gui;
 
 
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import entidades.Usuario;
 public class Main {
     public static void main(String[] args) {
     	
+    	/*
     	UsuarioService usuarioService = new UsuarioService();
     	
 		Usuario usuario1 = new Usuario();
@@ -31,7 +33,7 @@ public class Main {
 		usuario2.setFecha_nac("19/10/1990");
 		usuario2.setObraSocial("DOSUBA");
 		usuario2.setTipo_usu(3);
-		
+		*/
 		//comente ésta parte para que cuendo ponga para recuperar los usuarios no me traiga dos veces lo mismo
 		/*try {
 			usuarioService.guardar(usuario1);
@@ -39,7 +41,7 @@ public class Main {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}*/
-		
+		/*
 		List<Usuario> usuarios = null;
 		try {
 			usuarios = usuarioService.recuperarTodos();
@@ -60,5 +62,5 @@ public class Main {
 		}
 		
 		
-    }
+    }*/
 }

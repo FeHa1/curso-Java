@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Medico;
-import entidades.Usuario;
 
 public class MedicoDAO extends BaseDAO<Medico>{
 	
