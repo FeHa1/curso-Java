@@ -157,8 +157,10 @@ public class PanelManager implements ActionListener{
 		if (e.getSource() == verMenu) {
 			menu();
 		}
+		//cuando haga el 'TablaTurnoPanel' lo descomento
+		/*
 		else if(e.getSource() == medicoButton) {
-			mostrar(new TablaTurnoPanel()); //ésto va a estar bien cuando haga el TablaTurnoPanel
+			mostrar(new TablaTurnoPanel()); 
 	    				
 		}
 		else if(e.getSource() == adminButton) {
@@ -170,12 +172,13 @@ public class PanelManager implements ActionListener{
 		else if(e.getSource() == reporteButton) {
 			mostrar(new TablaReportePanel());
 		}
+		*/
 		else if(e.getSource()== loginButton) {
 			
 			int dni = Integer.parseInt(this.dniText.getText());
 			System.out.println("Iniciando sesion...");
 			try {
-				this.sesionUsu = usuService.mostrar_usuario(dni);
+				this.sesionUsu = usuService.muestraObjeto(dni); //preguntarle ésta parte a Tomi
 				menu();
 				Navegacion();
 			} catch (Exception e2) {
