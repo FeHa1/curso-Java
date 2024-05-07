@@ -9,11 +9,7 @@ import javax.swing.JTextField;
 
 import Service.*;
 import dao.DAOException;
-import entidad.Medico;
-import entidad.User;
 import entidades.*;
-import service.ServiceException;
-import service.UserService;
 import tableModels.MedicoTableModel;
 
 
@@ -109,7 +105,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 					//medico
 					
 					
-					Medico x1 = new Medico(leg,obr.toLowerCase(),costo);
+					Medico x1 = new Medico(leg, obr.toLowerCase(), costo);
 					
 					//cambiar permiso de usuario
 					UsuarioService servUsu = new UsuarioService(); // recordar que todo esto esta encerrado dentro de un try, en caso de que falle la base de datos
@@ -212,10 +208,9 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 	        		}
 	        	}
 	        }
-		return true;
-	
-	    }
-	    
+		
+			return true;
+	 }
 	    
 	
 	public boolean validarLeg(int leg) {
