@@ -98,7 +98,7 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 			}
 			
 			//validar
-			if(!validarStr(nYA)) {
+			if(!validarStr(nya)) {
 				error=error+"nombre no valido,";
 				verif=false;
 			}
@@ -118,11 +118,10 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 				//medico
 				Usuario x1 = new Usuario(dni, password, nya.toLowerCase(), fechaNac, obra.toLowerCase(), 3);
 				//cargar datos en tabla
-				modelo.getContenido().add(x1); //es del 'UsuarioTableModel' que despues lo tengo que hacer
-												//TODO: cambiar el metodo de obtencion para que se parezca al de refresh
-				modelo.fireTableDataChanged(); //es del 'UsuarioTableModel' que despues lo tengo que hacer
+				modelo.getContenido().add(x1); //TODO: cambiar el metodo de obtencion para que se parezca al de refresh
+				modelo.fireTableDataChanged(); 
 				//persistir en DB
-				this.servicio.guardar(x1);
+				this.servicio.guardar(x1); //despues me tengo que fijar ésto con Tomi
 				refresh();
 				mostrarerror(ok);
 			}
@@ -146,9 +145,9 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 			int x = (int) this.modelo.getValueAt(filaSeleccionada,0);
 			System.out.println(x+"fue borrado (dato legajo)");
 		
-			this.modelo.getContenido().remove(filaSeleccionada); //es del 'UsuarioTableModel' que despues lo tengo que hacer
+			this.modelo.getContenido().remove(filaSeleccionada); 
 		
-			modelo.fireTableDataChanged(); //es del 'UsuarioTableModel' que despues lo tengo que hacer
+			modelo.fireTableDataChanged(); 
 		
 			try {
 				
@@ -185,7 +184,8 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 		} 
 	}
 	
-	// validadores auxiliares------------------------------------------------------------------------------------------------	
+	
+	// validadores auxiliares
 	public boolean validarNum(int x) {
 		if (x>0 && x<2000000000) {
 			return true;
@@ -197,21 +197,21 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 	
 	public static boolean validarStr(String cadena) {
 		    
-			if (cadena.length()==0) {return false;}
-		    
-			for (int i = 0; i < cadena.length(); i++) {
-		        char caracter = cadena.charAt(i);
-		        if (!Character.isLetter(caracter) ) {
-		        	if(caracter != ',') {
-		        		if(caracter != ' ') {
-				        	return false;
-				        }
-		        	}
-		        } 
-		    }
-		    
-		    return true;
-		}	
+		if (cadena.length()==0) {return false;}
+	    
+		for (int i = 0; i < cadena.length(); i++) {
+	        char caracter = cadena.charAt(i);
+	        if (!Character.isLetter(caracter) ) {
+	        	if(caracter != ',') {
+	        		if(caracter != ' ') {
+			        	return false;
+			        }
+	        	}
+	        } 
+	    }
+	    
+	    return true;
+	}	
 
 	public boolean validarNac(String nac) {
 		if (nac.length()==10) {
@@ -220,7 +220,7 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 				int dia = Integer.parseInt(nac2[0]);
 				int mes = Integer.parseInt(nac2[1]);
 				int anio = Integer.parseInt(nac2[2]);
-				if (dia>0 && dia<32 && mes>0 && mes<13 && anio>1900 && anio<2023) {
+				if (dia>0 && dia<32 && mes>0 && mes<13 && anio>1900 && anio<2025) {
 					return true;
 				}
 			} catch (Exception e) {
@@ -230,7 +230,5 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 		}
 			
 		return false;
-	} 
-	
-
+	}
 }

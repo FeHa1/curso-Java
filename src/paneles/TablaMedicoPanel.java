@@ -18,7 +18,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 
 	//tabla
 	private JTable tablaMedicos;
-	//private MedicoTableModel modelo; //preguntarle a tomi sobre los 'tableModels'
+	private MedicoTableModel modelo;
 	private JScrollPane scrollPaneParaTabla;
 	
 	//servicio
@@ -44,13 +44,12 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 		agregarCampoCarga("obras:", campoObras);
 		this.campoCostoXConsulta = new JTextField();
 		agregarCampoCarga("Costo:", campoCostoXConsulta);
-		/* ésto es parte de lo que tengo comentado en la líena 19
 		//tabla
 		modelo = new MedicoTableModel();
 		tablaMedicos = new JTable(modelo);
 		scrollPaneParaTabla = new JScrollPane(tablaMedicos);
 		this.add(scrollPaneParaTabla);
-		*/
+		
 	}
 	
 	@Override
@@ -102,10 +101,9 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 				
 				//si todo esta validado correctamente se ejecuta la carga
 				if(verif && verifcosto && verifleg ) {
+					
 					//medico
-					
-					
-					Medico x1 = new Medico(leg, obr.toLowerCase(), costo);
+					Medico x1 = new Medico(leg, obr.toLowerCase(), costo); //me tengo que fijar con Tomi
 					
 					//cambiar permiso de usuario
 					UsuarioService servUsu = new UsuarioService(); // recordar que todo esto esta encerrado dentro de un try, en caso de que falle la base de datos
@@ -156,9 +154,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 					servUsu.modificar(usu);
 					}
 				
-			} catch (DAOException | ServiceException e1) {
-			// TODO Auto-generated catch block
-			
+			} catch (DAOException | ServiceException e1) {			
 				e1.printStackTrace();
 			}
 			
@@ -197,19 +193,22 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 	
 	public boolean validarStr(String cadena) {
 	    
-		if (cadena.length()==0) {return false;}
+		if (cadena.length()==0) {
+			return false;
+		}
 	    
 		for (int i = 0; i < cadena.length(); i++) {
 	        char caracter = cadena.charAt(i);
 	        if (!Character.isLetter(caracter) ) {
 	        	if(caracter != ',') {
 	        		if(caracter != ' ') {
-			        	return false;}
-	        		}
+			        	return false;
+			        }
 	        	}
 	        }
+	     }
 		
-			return true;
+		return true;
 	 }
 	    
 	
@@ -225,8 +224,6 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 			
 			e.printStackTrace();
 			return false;
-		}
-		
+		}	
 	}
-
 }

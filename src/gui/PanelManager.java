@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import entidades.Usuario;
 import Service.UsuarioService;
+import paneles.*;
 
 public class PanelManager implements ActionListener{
 	
@@ -158,7 +159,7 @@ public class PanelManager implements ActionListener{
 			menu();
 		}
 		//cuando haga el 'TablaTurnoPanel' lo descomento
-		/*
+		
 		else if(e.getSource() == medicoButton) {
 			mostrar(new TablaTurnoPanel()); 
 	    				
@@ -172,13 +173,13 @@ public class PanelManager implements ActionListener{
 		else if(e.getSource() == reporteButton) {
 			mostrar(new TablaReportePanel());
 		}
-		*/
+		
 		else if(e.getSource()== loginButton) {
 			
 			int dni = Integer.parseInt(this.dniText.getText());
 			System.out.println("Iniciando sesion...");
 			try {
-				this.sesionUsu = usuService.muestraObjeto(dni); //preguntarle ésta parte a Tomi
+				this.sesionUsu = usuService.mostrar(dni); //preguntarle ésta parte a Tomi
 				menu();
 				Navegacion();
 			} catch (Exception e2) {

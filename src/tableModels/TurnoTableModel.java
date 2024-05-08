@@ -22,7 +22,7 @@ public class TurnoTableModel extends AbstractTableModel {
 	private Class[] tiposColumnas = {Integer.class, String.class,String.class,String.class,String.class, Integer.class};
 	private List<Turno> contenido;
 	
-	public TurnosTableModel() {
+	public TurnoTableModel() {
 		contenido = new ArrayList<Turno>();
 	}
 	
