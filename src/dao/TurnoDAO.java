@@ -17,8 +17,9 @@ public class TurnoDAO extends BaseDAO<Turno>{
 		int turno = UnTurno.getTurno();
 		String fecha = UnTurno.getFecha();
 		String hora = UnTurno.getHora();
+		int consultorio = UnTurno.getConsultorio();
 		
-		return ("INSERT INTO TURNO (dni, legMedico, turno, fecha, hora) VALUES ('"	+ dni + "', '" + legMedico + "', '" + turno + "', '" + fecha + "', '" + hora + "')");
+		return ("INSERT INTO TURNO (dni, legMedico, turno, fecha, hora, consultorio) VALUES ('"	+ dni + "', '" + legMedico + "', '" + turno + "', '" + fecha + "', '" + hora + "', '" + consultorio + "')");
 	}
 
 	
@@ -29,10 +30,12 @@ public class TurnoDAO extends BaseDAO<Turno>{
 		int turno = UnTurno.getTurno();
 		String fecha = UnTurno.getFecha();
 		String hora = UnTurno.getHora();
+		int consultorio = UnTurno.getConsultorio();
 		String str="UPDATE TURNOS SET dni = '" + dni 
 				+ "', legMedico = '" + legMedico 
 				+ "', fecha = '" + fecha 
 				+ "', hora = '" + hora 
+				+ "', consultorio = '" + consultorio
 				+ "' WHERE turno = '" + turno + "'";
 
 		return str;
@@ -54,9 +57,13 @@ public class TurnoDAO extends BaseDAO<Turno>{
     		int legMedico=rs.getInt("legMedico");
     		String fecha = rs.getString("fecha");
     		String hora = rs.getString("hora");
-        Turno u = new Turno(dni, legMedico, turno, fecha, hora);
-        return u;}
-		else {return null;}
+    		int consultorio = rs.getInt("consultorio");
+	        Turno u = new Turno(dni, legMedico, turno, fecha, hora, consultorio);
+	        return u;
+        }
+		else {
+			return null;
+		}
 	}
 	
 	
@@ -72,7 +79,8 @@ public class TurnoDAO extends BaseDAO<Turno>{
     		int turno = rs.getInt("turno");
     		String fecha = rs.getString("fecha");
     		String hora = rs.getString("hora");
-            Turno u = new Turno(dni, legMedico, turno, fecha, hora);
+    		int consultorio = rs.getInt("consultorio");
+            Turno u = new Turno(dni, legMedico, turno, fecha, hora, consultorio);
             resultado.add(u);
         }
         
@@ -83,6 +91,7 @@ public class TurnoDAO extends BaseDAO<Turno>{
 	protected String listaStringSql() {
 		return "SELECT * FROM turnos";
 	}
+	
 	@Override
 	protected String BorrarStringSql(int turno) {
 		return "DELETE FROM turnos WHERE turno = '" + turno + "'";

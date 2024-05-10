@@ -47,7 +47,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 	private JComboBox<String> medicoComboBox;
 	private JComboBox<Object> horaComboBox;
 	private JComboBox<Object> fechaComboBox;
-	//private JComboBox<Integer> consultorioComboBox; //lo dejo comentado porque no tengo consultorio
+	private JComboBox<Integer> consultorioComboBox; 
 	
 	//paneles
 	private JPanel panelPrincipal;
@@ -143,16 +143,15 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
         panelPrincipal.add(new JLabel("Hora: "));
         panelPrincipal.add(horaComboBox);
         
-        /* lo comento porque todavia no tengo el consultorio
         //campo consultorio
-        JLabel nroConsultorio = new JLabel("nro_consultorio:");
-		panelPrincipal.add(nroConsultorio);
+        JLabel consultorio = new JLabel("nro_consultorio: ");
+		panelPrincipal.add(consultorio);
         this.consultorioComboBox = new JComboBox<>();
         for (int i = 1; i <= 30; i++) {
             consultorioComboBox.addItem(i);
         }
         panelPrincipal.add(consultorioComboBox);
-        */
+        
         
         //boton para consultar turno
         reservarButton = new JButton("Reservar Turno");
@@ -188,12 +187,12 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 			Medico med = listaMedico.get(medicoComboBox.getSelectedIndex());
 			String fecha = (String) fechaComboBox.getSelectedItem();
 			String hora = (String) horaComboBox.getSelectedItem();
-			//Integer consultorio = (Integer) consultorioComboBox.getSelectedItem(); //está comentado porque todavia no tengo el consultorio
+			Integer consultorio = (Integer) consultorioComboBox.getSelectedItem();
 			
-			if(verificarValidezDeTurno(fecha,hora,med,usu)) { //ésta parte debería ser '(consultorio,fecha,hora,med,usu)' pero todavia no tengo el consultorio
+			if(verificarValidezDeTurno(consultorio, fecha, hora, med, usu)) { //ésta parte debería ser '(consultorio,fecha,hora,med,usu)' pero todavia no tengo el consultorio
 				//guardar turno
-				try {																	//'generarIdNuevo()' se resuelve mas abajo
-					Turno tur= new Turno(usu.getDni(), med.getLegMedico(), fecha, hora, generarIdNuevo()); //ésta parte debería ser 'usu.getDni(), med.getLegMedico(), fecha, hora, consultorio,generarIdNuevo()' pero todavia no tengo consultorio
+				try {
+					Turno tur= new Turno(usu.getDni(), med.getLegMedico(), generarTurnoNuevo(), fecha, hora, consultorio); 
 					this.turnoService.guardar(tur);
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -219,7 +218,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 					this.turnoService.eliminar(x);
 					System.out.println(x + "fue borrado (dato legajo)");
 					mostrarerror(ok);
-				} catch (ServiceException e1) {
+				} catch (ServiceException | DAOException e1) {
 				// TODO Auto-generated catch block
 					mostrarerror("La base de datos fallo");
 					e1.printStackTrace();
@@ -277,7 +276,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 	}
 	
 	//verificar que el turno sea valido antes de cargar
-	public boolean verificarValidezDeTurno(String fecha, String Hora, Medico med, Usuario usu) { //ésto debería ser 'int consultorio, String fecha, String Hora,Medico med,User usu' pero no tengo consultorio
+	public boolean verificarValidezDeTurno(int consultorio, String fecha, String Hora, Medico med, Usuario usu) { 
 		List<Turno> lista = null;
 		if(med.getLegMedico()==usu.getDni()) {
 			mostrarerror("el medico y el paciente no pueden ser iguales");
@@ -357,11 +356,10 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 	}
 	
 	//como no tengo consultorio éstas verificaciones todavia no las necesito
-	/* 
 	public boolean verificarDisponibilidadConsultorio(List<Turno> lista, String fecha, int consultorio) {
 		for(Turno turn :lista) {
 			if(turn.getFecha().equals(fecha)) {
-				if(turn.getNroConsultorio()==consultorio) {
+				if(turn.getConsultorio()==consultorio) {
 					return false;
 				}
 			}
@@ -372,9 +370,9 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 	
 	public boolean elMedicoEstaEnElConsultorio(List<Turno> lista, String fecha, int consultorio, int legajo) {
 		for(Turno turn :lista) {
-			if (turn.getLegajoMedico()==legajo) {
+			if (turn.getLegMedico()==legajo) {
 				if(turn.getFecha().equals(fecha)) {
-					if(turn.getNroConsultorio()==consultorio) {
+					if(turn.getConsultorio()==consultorio) {
 						return true;
 					}
 				}
@@ -386,9 +384,9 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 
 	public boolean verificarQueElMedicoNoEsteEnOtroConsultorio(List<Turno> lista, String fecha, int consultorio, int legajo) {
 		for(Turno turn :lista) {
-			if (turn.getLegajoMedico()==legajo) {
+			if (turn.getLegMedico()==legajo) {
 				if(turn.getFecha().equals(fecha)) {
-					if(turn.getNroConsultorio()!=consultorio) {
+					if(turn.getConsultorio()!=consultorio) {
 						return false;
 					}
 				}
@@ -396,10 +394,9 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 		}
 		return true;
 	}
-	*/
 	
 	
-	public int generarIdNuevo() throws DAOException {
+	public int generarTurnoNuevo() throws DAOException {
 		int aux=0;
 		List<Turno> x =this.turnoService.listaTodosLosObjetos();
 		for(Turno turn : x)

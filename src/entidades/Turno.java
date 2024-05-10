@@ -7,17 +7,19 @@ public class Turno {
 	private int turno;
 	private String fecha;
 	private String hora;
+	private int consultorio;
 	
 	public Turno() {
 		
 	}
 	
-	public Turno(int dni, int legMedico, int turno, String fecha, String hora) {
+	public Turno(int dni, int legMedico, int turno, String fecha, String hora, int consultorio) {
 		this.setDni(dni);
 		this.setLegMedico(legMedico);
 		this.setTurno(turno);
 		this.setFecha(fecha);
 		this.setHora(hora);
+		this.setConsultorio(consultorio);
 	}
 
 	public int getDni() {
@@ -60,5 +62,11 @@ public class Turno {
 		this.hora = hora;
 	}
 	
+	public int getConsultorio() {
+		return consultorio;
+	}
 	
+	public void setConsultorio(int consultorio) {
+		this.consultorio = consultorio;
+	}
 }

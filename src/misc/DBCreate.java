@@ -37,14 +37,12 @@ public class DBCreate {
 			Connection c = DBManager.connect();
 	        Statement s = c.createStatement();
 	        
-	        String sql = "drop table MEDICOS"; //ésto tomi lo tiene comentado, le tengo que preguntar
 	        String sql2 = "CREATE TABLE MEDICOS" 
 	        			+ " (legMedico int not null," 
 	        			+ " cobra int not null,"
 	        			+ " PRIMARY KEY (legMedico))";
 	        			//no puse la obra social porque yo la tengo en el usuario
 	        
-	        s.executeUpdate(sql); //ésto tomi lo tiene comentado, le tengo que preguntar
 	        s.executeUpdate(sql2);
 	        c.commit();
 	        
@@ -65,7 +63,9 @@ public class DBCreate {
 	        			+ " legMedico int not null,"
 	        			+ " turno int not null,"
 	        			+ " fecha varchar(200),"
-	        			+ " hora varchar(200))";
+	        			+ " hora varchar(200),"
+	        			+ " consultorio int not null,"
+	        			+ " PRIMARY KEY (turno))";
 	        
 	        s.executeUpdate(sql2);
 	        s.executeUpdate(sql);
@@ -110,7 +110,7 @@ public class DBCreate {
         
 		}catch(SQLException e){
 			
-			System.out.println("no se cargo admin:"+e.getMessage());
+			System.out.println("no se cargo admin: " + e.getMessage());
 		}
 	}
 }
