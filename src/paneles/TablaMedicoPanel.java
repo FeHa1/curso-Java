@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import Service.*;
 import dao.DAOException;
+import dao.ObjDupliException;
 import entidades.*;
 import tableModels.MedicoTableModel;
 
@@ -58,7 +59,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 		
 		try {
 			String error = "Error: ";
-			int costo=-1;
+			double costo=-1;
 			int leg=-1;
 			boolean verif= true;
 			boolean verifleg= true;
@@ -67,7 +68,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 			/*DESPUES ME FIJO TODO ÉSTO*/
 			//validacion de numeros
 			try {
-				costo = Integer.parseInt( this.campoCostoXConsulta.getText());
+				costo = Double.parseDouble( this.campoCostoXConsulta.getText());
 				leg = Integer.parseInt( this.campoLegajo.getText());
 				try {
 					if(!validarNum(leg)) {error=error+"error de legajo usuario no encontrado";}
@@ -86,44 +87,44 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 					error=error+" costo fuera de rango,";
 				}
 			
-				} catch (Exception e2) {
-					error=error+" solo es posible numeros en leg. y costo,";
-					verif= false;	
+			} catch (Exception e2) {
+				error=error+" solo es posible numeros en leg. y costo,";
+				verif= false;	
+			}
+				
+			//validacion de strings
+			String obr = this.campoObras.getText();
+			boolean verifnom = validarStr(obr);
+			
+			if(!validarStr(obr)) {
+				error=error+"error obras usar a-z o ','";
+			}		
+			
+			//si todo esta validado correctamente se ejecuta la carga
+			if(verif && verifcosto && verifleg ) {
+				
+				//medico
+				Medico x1 = new Medico(leg, costo);
+				
+				//cambiar permiso de usuario
+				UsuarioService servUsu = new UsuarioService(); // recordar que todo esto esta encerrado dentro de un try, en caso de que falle la base de datos
+				
+	
+				Usuario usu= servUsu.mostrar(leg);
+				if (usu.getTipo_usu()==3){
+					usu.setTipo_usu(2);
 				}
 				
-				//validacion de strings
-				String obr = this.campoObras.getText();
-				boolean verifnom = validarStr(obr);
-				
-				if(!validarStr(obr)) {
-					error=error+"error obras usar a-z o ','";
-				}		
-				
-				//si todo esta validado correctamente se ejecuta la carga
-				if(verif && verifcosto && verifleg ) {
-					
-					//medico
-					Medico x1 = new Medico(leg, obr.toLowerCase(), costo); //me tengo que fijar con Tomi
-					
-					//cambiar permiso de usuario
-					UsuarioService servUsu = new UsuarioService(); // recordar que todo esto esta encerrado dentro de un try, en caso de que falle la base de datos
-					
-		
-					Usuario usu= servUsu.mostrar(leg);
-					if (usu.getTipo_usu()==3){
-						usu.setTipo_usu(2);
-					}
-					
-					servUsu.modificar(usu);
-					//persistir en DB
-					this.servicio.guardar(x1);
-					refresh(); 
-					mostrarerror(ok);
-				}
-				
-				else {
-					mostrarerror(error);
-				}
+				servUsu.modificar(usu);
+				//persistir en DB
+				this.servicio.guardar(x1);
+				refresh();
+				mostrarerror(ok);
+			}
+			
+			else {
+				mostrarerror(error);
+			}
 			
 		} catch (DAOException e2) {
 			
@@ -131,6 +132,10 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 			System.out.println("error de carga");
 			mostrarerror("ERROR EN CARGA");
 			// TODO: implementar validacion y ventana emergente
+			
+		} catch (ObjDupliException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -181,8 +186,8 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 	}
 	
 	//seccion de validaciones
-	public boolean validarNum(int x) {
-		if (x>0 && x<2000000000) {
+	public boolean validarNum(double costo) {
+		if (costo>0 && costo<2000000000) {
 			return true;
 			
 		}

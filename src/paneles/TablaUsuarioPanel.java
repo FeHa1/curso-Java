@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import Service.UsuarioService;
 import dao.DAOException;
+import dao.ObjDupliException;
 import entidades.*;
 import paneles.AbstractCRUD;
 import Service.*;
@@ -121,7 +122,7 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 				modelo.getContenido().add(x1); //TODO: cambiar el metodo de obtencion para que se parezca al de refresh
 				modelo.fireTableDataChanged(); 
 				//persistir en DB
-				this.servicio.guardar(x1); //despues me tengo que fijar ésto con Tomi
+				this.servicio.guardar(x1);
 				refresh();
 				mostrarerror(ok);
 			}
@@ -135,6 +136,9 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 			System.out.println("error de carga");
 			mostrarerror("ERROR de carga"); 
 			
+		} catch (ObjDupliException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}	
 	}
 	

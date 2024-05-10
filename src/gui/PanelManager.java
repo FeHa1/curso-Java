@@ -12,8 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import entidades.Usuario;
-import Service.UsuarioService;
+import entidades.*;
+import Service.*;
 import paneles.*;
 
 public class PanelManager implements ActionListener{
@@ -29,10 +29,14 @@ public class PanelManager implements ActionListener{
 	
 	//menus
 	JButton verMenu;
-	JButton adminButton;
+	JButton reporteButton;
 	JButton pacienteButton;
 	JButton medicoButton;
-	JButton reporteButton;
+	JButton adminButton;
+	
+	//usuario normal
+	JButton consultarTurnosButton;
+	JButton consultarGananciaButton;
 	
 	//Login
 	Label dniLabel;
@@ -40,9 +44,14 @@ public class PanelManager implements ActionListener{
 	Label errorLabel;
 	
 	//Campos de texto
-	JTextField dniText;
-	JTextField passText;
+	private JTextField dniText;
+	private JTextField passText;
+	
+	//botones login
 	JButton loginButton;
+	private JButton logoutButton;
+	private JButton consultarTurnoPropioButton;
+	private JButton consultarTurnoPacienteButton;
 	
 	PanelManager(){
 		this.frame = new JFrame("Turnera medica Federico Hayes");
@@ -108,12 +117,15 @@ public class PanelManager implements ActionListener{
 		vista.revalidate();
 		vista.repaint();
 	}
-	 
+	
 	public void Navegacion(){
 		this.verMenu= new JButton("MENU");
 		verMenu.addActionListener(this);
 		nav.add(verMenu);
-		
+		this.logoutButton = new JButton("LogOut");
+    	logoutButton.addActionListener(this);
+    	nav.add(logoutButton);
+    	nav.add(new Label("                  bienvenido: "+ sesionUsu.getNya()));
 		nav.revalidate();
 		nav.repaint();
 	}
@@ -132,23 +144,35 @@ public class PanelManager implements ActionListener{
 		 
 		int tipo = sesionUsu.getTipo_usu();
 		
-		if (tipo >= 2) {
-    		this.reporteButton= new JButton("Reporte");
+		if(tipo == 1) {
+			this.reporteButton = new JButton("Reporte");
     		reporteButton.addActionListener(this);
+    		this.medicoButton = new JButton("Cargar Medico");
+    		medicoButton.addActionListener(this);
+    		this.pacienteButton = new JButton("Cargar Usuario/Paciente");
+    		pacienteButton.addActionListener(this);
+    		this.adminButton = new JButton("Administrar turnos");
+    		adminButton.addActionListener(this);
+    		this.consultarGananciaButton = new JButton("Consultar ganancia");
+    		consultarGananciaButton.addActionListener(this);
+    		this.consultarTurnosButton = new JButton("Consultar turnos");
+    		consultarTurnosButton.addActionListener(this);
     		vista.add(reporteButton);
-    	}
-		
-		if(sesionUsu.getTipo_usu() == 3) {
-			this.adminButton= new JButton("Administrar Medicos");
-	    	adminButton.addActionListener(this);
-	    	this.medicoButton= new JButton("Administrar Turnos");
-	    	medicoButton.addActionListener(this);
-	    	this.pacienteButton= new JButton("Administrar Paciente");
-	    	pacienteButton.addActionListener(this);
-	    	vista.add(adminButton);
-	    	vista.add(medicoButton);
-	    	vista.add(pacienteButton);
+    		vista.add(medicoButton);
+    		vista.add(pacienteButton);
+    		vista.add(adminButton);
+    		vista.add(consultarGananciaButton);
+    		vista.add(consultarTurnosButton);
 		}
+		
+		if(tipo == 2) {
+			this.consultarTurnoPacienteButton = new JButton("Consultar turno del paciente");
+			consultarTurnoPacienteButton.addActionListener(this);
+			vista.add(consultarTurnoPacienteButton);
+		}
+		
+		this.consultarTurnoPropioButton = new JButton("Consultar turno de paciente");
+		consultarTurnoPropioButton.addActionListener(this);
 		
 		vista.validate();
     	vista.repaint();
@@ -158,32 +182,74 @@ public class PanelManager implements ActionListener{
 		if (e.getSource() == verMenu) {
 			menu();
 		}
-		//cuando haga el 'TablaTurnoPanel' lo descomento
 		
-		else if(e.getSource() == medicoButton) {
-			mostrar(new TablaTurnoPanel()); 
-	    				
+		else if(e.getSource() == consultarGananciaButton) {
+			mostrar(new ReporteMedicoEntreFechas()); 		
 		}
+		
 		else if(e.getSource() == adminButton) {
 			mostrar(new TablaMedicoPanel());
 		}
-		else if(e.getSource() == pacienteButton) {
-			mostrar(new TablaUsuarioPanel());
-		}
-		else if(e.getSource() == reporteButton) {
-			mostrar(new TablaReportePanel());
+		
+		else if(e.getSource() == consultarTurnoPropioButton) {
+			mostrar(new ListaConsultas(sesionUsu, 1));
 		}
 		
-		else if(e.getSource()== loginButton) {
+		else if(e.getSource() == consultarTurnoPacienteButton) {
+			mostrar(new ListaConsultas(sesionUsu, 2));
+		}
+		
+		else if(e.getSource() == consultarTurnosButton) {
+			mostrar(new ListaConsultas(sesionUsu, 3));
+		}
+		
+		else if(e.getSource() == medicoButton) {
+			mostrar(new TablaMedicoPanel());
+		}
+		else if(e.getSource() == adminButton) {
+			//mostrar(new PanelAdministrarTurnos()); //todavia tengo que hacerlo
+		}
+		else if(e.getSource() == reporteButton) {
 			
-			int dni = Integer.parseInt(this.dniText.getText());
-			System.out.println("Iniciando sesion...");
+			mostrar(new ReporteGananciaMedico());
+		}
+		
+		else if(e.getSource() == logoutButton) {
+			this.vista.removeAll();
+			this.nav.removeAll();
+			executeGUI();
+		}
+		
+		else if(e.getSource() == loginButton) {
+			
 			try {
-				this.sesionUsu = usuService.mostrar(dni); //preguntarle ésta parte a Tomi
-				menu();
-				Navegacion();
-			} catch (Exception e2) {
-				mostrarerror("DNI no existe.");
+				int dni = Integer.parseInt(this.dniText.getText());
+				System.out.println("Iniciando sesion...");
+				
+				try {
+					this.sesionUsu= usuService.mostrar(dni);
+					System.out.println("Usuario + Password");
+					System.out.println(sesionUsu.getDni());
+					System.out.println(sesionUsu.getPassword());
+					
+					if(this.sesionUsu.getPassword().equals(passText.getText())){
+						System.out.println("contraseña Correcta");
+						menu();
+						Navegacion();
+					}
+					else {
+						System.out.println("Contraseña Incorrecta");
+						System.out.println(sesionUsu.getPassword());
+						System.out.println(passText.getText());
+						mostrarerror("Contraseña Incorrecta");
+					}
+					
+				}catch(Exception e2) {
+					mostrarerror("El usuario no existe");
+				}
+				
+			}catch(Exception e2){
+				mostrarerror("No se reconoce el DNI");
 			}
 		}
 	}

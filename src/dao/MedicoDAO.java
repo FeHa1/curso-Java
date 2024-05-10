@@ -14,7 +14,7 @@ public class MedicoDAO extends BaseDAO<Medico>{
 	@Override
 	protected String insertSqlString(Medico entidad) {
 		int legajo = entidad.getLegMedico();
-        boolean cobra = entidad.isCobra();
+        double cobra = entidad.isCobra();
         
 		return "INSERT INTO medicos(legMedico, cobra) VALUES ('" + legajo + "', '" + cobra + "')";
 	}
@@ -22,7 +22,7 @@ public class MedicoDAO extends BaseDAO<Medico>{
 	@Override
 	protected String updateSqlString(Medico entidad) {
 		int legajo = entidad.getLegMedico();
-        boolean cobra = entidad.isCobra();
+        double cobra = entidad.isCobra();
         
 		return "UPDATE medicos set (legMedico, cobra) VALUES ('" + legajo + "', '" + cobra + "')";
 	}
@@ -37,18 +37,11 @@ public class MedicoDAO extends BaseDAO<Medico>{
 	@Override
 	protected Medico resultsetToObject(ResultSet rs) throws SQLException {
 		if (rs.next()) {
-			//pongo todos éstos atributos porque estoy creando un nuevo medico, y el 'medico' heredaba todos los atributos de 'usuario'
-			int dni = rs.getInt("dni");
-	        String password = rs.getString("password");
-	        String nya = rs.getString("nya");
-	        String fecha_nac = rs.getString("fecha_nac");
-	        String obra = rs.getString("obraSocial");
-	        int tipo_usu = rs.getInt("tipo_usu");
-	        
+
         	int legajo = rs.getInt("legMedico");
-            boolean cobra = rs.getBoolean("cobra");
+            double cobra = rs.getDouble("cobra");
             
-            Medico u = new Medico(dni, password, nya, fecha_nac, obra, tipo_usu, legajo, cobra);
+            Medico u = new Medico(legajo, cobra);
             
             return u;
         }
@@ -62,17 +55,11 @@ public class MedicoDAO extends BaseDAO<Medico>{
 	protected List<Medico> rsToList(ResultSet rs) throws SQLException {
 		List<Medico> resultado = new ArrayList<>();
         while (rs.next()) {
-        	int dni = rs.getInt("dni");
-	        String password = rs.getString("password");
-	        String nya = rs.getString("nya");
-	        String fecha_nac = rs.getString("fecha_nac");
-	        String obra = rs.getString("obraSocial");
-	        int tipo_usu = rs.getInt("tipo_usu");
 	        
 	        int legajo = rs.getInt("legMedico");
-            boolean cobra = rs.getBoolean("cobra");
+            double cobra = rs.getDouble("cobra");
             
-            Medico u = new Medico(dni, password, nya, fecha_nac, obra, tipo_usu, legajo, cobra);
+            Medico u = new Medico(legajo, cobra);
             
             resultado.add(u);
         }   

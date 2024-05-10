@@ -1,20 +1,23 @@
 package entidades;
 
+import dao.DAOException;
+import Service.UsuarioService;
+
 public class Medico extends Usuario{
 	
 	private int legMedico; //legajo medico es igual al dni usuario
-	private boolean cobra; 
+	private double cobra;
 	
 	public Medico() {
 		
 	}
 	
-	public Medico(int dni, String password, String nya, String fecha_nac, String obraSocial, int tipo_usu, int legMedico, boolean cobra) {
-		super(dni, password, nya, fecha_nac, obraSocial, tipo_usu);
-		this.legMedico = legMedico; 
-		this.cobra = cobra; 
-	}
-
+	public Medico(int legMedico, double cobra)  {
+		
+        super(legMedico, obtenerUsuario(legMedico).getPassword(), obtenerUsuario(legMedico).getNya(), obtenerUsuario(legMedico).getFecha_nac(), obtenerUsuario(legMedico).getObraSocial(), obtenerUsuario(legMedico).getTipo_usu());
+        this.legMedico = legMedico;
+        this.cobra = cobra;
+    }
 
 	public int getLegMedico() {
 		return legMedico;
@@ -26,13 +29,25 @@ public class Medico extends Usuario{
 	}
 
 
-	public boolean isCobra() {
+	public double isCobra() {
 		return cobra;
 	}
 
 
-	public void setCobra(boolean cobra) {
+	public void setCobra(double cobra) {
 		this.cobra = cobra;
+	}
+	
+	private static Usuario obtenerUsuario(int legMedico) {
+		UsuarioService serv = new UsuarioService();
+        try {
+			return serv.mostrar(legMedico);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Usuario x = new Usuario(404, "error", "error", "error", "error", 404);
+			return x;
+		}
 	}
 	
 }

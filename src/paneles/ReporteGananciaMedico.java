@@ -144,9 +144,9 @@ public class ReporteGananciaMedico extends JPanel implements ActionListener{
     }
 
 	
-	public void mostrarGanancia(int cantidadTurnos, int costoConsulta) {
+	public void mostrarGanancia(int cantidadTurnos, double costoConsulta) {
 
-		int valor=cantidadTurnos*costoConsulta;
+		double valor=cantidadTurnos*costoConsulta;
 		displayCantTurnos.setText("cantidad de turnos> "+cantidadTurnos);
 		display.setText("Ganancias> "+valor+"$");
 		display.validate();
