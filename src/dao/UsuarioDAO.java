@@ -15,10 +15,9 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 		String password = UnUser.getPassword();
 		String nya = UnUser.getNya();
 		String fecha_nac = UnUser.getFecha_nac();
-		String obra = UnUser.getObraSocial();
 		int tipo_usu = UnUser.getTipo_usu();
 		
-		return ("INSERT INTO USERS1 (dni, password, nya, fecha_nac, obraSocial,tipo_usu) VALUES ('"	+ dni + "', '" + password + "', '" + nya + "', '" + fecha_nac + "', '" + obra+"', '" + tipo_usu +"')");
+		return ("INSERT INTO USUARIOS (dni, password, nya, fecha_nac, tipo_usu) VALUES ('"	+ dni + "', '" + password + "', '" + nya + "', '" + fecha_nac + "', '" + tipo_usu +"')");
 	}
 	
 	@Override
@@ -27,21 +26,19 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 		String password = e.getPassword();
 		String nya = e.getNya();
 		String fecha_nac = e.getFecha_nac();
-		String obra = e.getObraSocial();
 		int tipo_usu = e.getTipo_usu();
 		
-		return ("UPDATE USERS1 SET pass = '" + password 
+		return ("UPDATE USUARIOS SET pass = '" + password 
 				+ "', nya = '" + nya 
 				+ "', fecha_nac = '" + fecha_nac 
-				+ "', obra = '" + obra 
-				+ "', tipo_user = '" + tipo_usu 
+				+ "', tipo_usu = '" + tipo_usu 
 				+ "' WHERE dni =" + dni);
 	}
 	
 	@Override
 	protected String BusquedaSimpleSqlString(int t) {
 		
-		return "SELECT * FROM USERS1 WHERE dni = '" + t + "'";
+		return "SELECT * FROM USUARIOS WHERE dni = '" + t + "'";
 	}
 	
 	@Override
@@ -51,10 +48,9 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 	        String password = rs.getString("password");
 	        String nya = rs.getString("nya");
 	        String fecha_nac = rs.getString("fecha_nac");
-	        String obra = rs.getString("obraSocial");
 	        int tipo_usu = rs.getInt("tipo_usu");
 	        
-	        Usuario u = new Usuario(dni, password, nya, fecha_nac, obra, tipo_usu);
+	        Usuario u = new Usuario(dni, password, nya, fecha_nac, tipo_usu);
 	        
 	        return u;
         }
@@ -70,10 +66,9 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 	        String password = rs.getString("password");
 	        String nya = rs.getString("nya");
 	        String fecha_nac = rs.getString("fecha_nac");
-	        String obra = rs.getString("obraSocial");
 	        int tipo_usu = rs.getInt("tipo_usu");
             
-            Usuario u = new Usuario(dni, password, nya, fecha_nac, obra, tipo_usu);
+            Usuario u = new Usuario(dni, password, nya, fecha_nac, tipo_usu);
             resultado.add(u);
         }   
         
@@ -82,11 +77,11 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 	
 	@Override
 	protected String listaStringSql() {
-		return "SELECT * FROM USERS1";
+		return "SELECT * FROM USUARIOS";
 	}
 	
 	@Override
 	protected String BorrarStringSql(int dni) {
-		return "DELETE FROM USERS1 WHERE dni = '" + dni + "'";
+		return "DELETE FROM USUARIOS WHERE dni = '" + dni + "'";
 	}	
 }

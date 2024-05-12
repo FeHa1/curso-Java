@@ -86,7 +86,7 @@ public class PanelManager implements ActionListener{
 	 //muestra el Login
 	public void Login() {
 		this.loginPanel = new JPanel();
-		loginPanel.setLayout(new GridLayout(2,2));
+		loginPanel.setLayout(new GridLayout(3,2));
 		loginPanel.setSize(1000,800);
 		
 		//panel principal
@@ -125,7 +125,7 @@ public class PanelManager implements ActionListener{
 		this.logoutButton = new JButton("LogOut");
     	logoutButton.addActionListener(this);
     	nav.add(logoutButton);
-    	nav.add(new Label("                  bienvenido: "+ sesionUsu.getNya()));
+    	//nav.add(new Label("                  bienvenido: "+ sesionUsu.getNya()));
 		nav.revalidate();
 		nav.repaint();
 	}
@@ -206,12 +206,19 @@ public class PanelManager implements ActionListener{
 		else if(e.getSource() == medicoButton) {
 			mostrar(new TablaMedicoPanel());
 		}
+		
 		else if(e.getSource() == adminButton) {
 			//mostrar(new PanelAdministrarTurnos()); //todavia tengo que hacerlo
 		}
+		
 		else if(e.getSource() == reporteButton) {
 			
 			mostrar(new ReporteGananciaMedico());
+		}
+		
+		else if(e.getSource() == pacienteButton) {
+					
+			mostrar(new TablaUsuarioPanel());
 		}
 		
 		else if(e.getSource() == logoutButton) {
@@ -237,6 +244,7 @@ public class PanelManager implements ActionListener{
 						menu();
 						Navegacion();
 					}
+					
 					else {
 						System.out.println("Contraseña Incorrecta");
 						System.out.println(sesionUsu.getPassword());

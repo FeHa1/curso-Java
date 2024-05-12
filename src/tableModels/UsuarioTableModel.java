@@ -14,18 +14,16 @@ public class UsuarioTableModel extends AbstractTableModel {
 	private String password;
 	private String nya;
 	private String fecha_nac;
-	private String obraSocial;
 	
 	private static final int columna_dni = 0;
 	private static final int columna_pass = 1;
 	private static final int columna_nya = 2;
 	private static final int columna_fecha_nac = 3;
-	private static final int columna_obra = 4;
-	private static final int columna_tipo_usuario = 5;
+	private static final int columna_tipo_usuario = 4;
 	
-	private String[] nombresColumnas = {"dni", "password", "nya", "fecha_nac", "obra", "permiso"};
+	private String[] nombresColumnas = {"dni", "password", "nya", "fecha_nac", "permiso"};
 	@SuppressWarnings("rawtypes")
-	private Class[] tiposColumnas = {Integer.class, String.class,String.class,String.class,String.class, Integer.class};
+	private Class[] tiposColumnas = {Integer.class, String.class, String.class, String.class, Integer.class};
 	private List<Usuario> contenido;
 	
 	public UsuarioTableModel() {
@@ -59,9 +57,6 @@ public class UsuarioTableModel extends AbstractTableModel {
 		case columna_fecha_nac:
 			result = m.getFecha_nac();
 			break;
-		case columna_obra:
-			result = m.getObraSocial();
-			break;
 		case columna_tipo_usuario:
 			result = m.getTipo_usu();
 			break;
@@ -92,5 +87,4 @@ public class UsuarioTableModel extends AbstractTableModel {
     public void setContenido(List<Usuario> contenido) {
     	this.contenido = contenido;
     }
-
 }

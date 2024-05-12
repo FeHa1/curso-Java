@@ -129,7 +129,7 @@ public abstract class BaseDAO<T> implements InterBaseDAO<T>{
         } catch (SQLException e1) {
             e1.printStackTrace();
             throw new DAOException("(DAO>LA CONEXION CON LA BASE DE DATOS NO FUE CERRADA CORRECTAMENTE)" + e1.getMessage());
-            }
+        }
     }
 	
 	

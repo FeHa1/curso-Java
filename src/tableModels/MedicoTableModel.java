@@ -12,12 +12,11 @@ public class MedicoTableModel extends AbstractTableModel{
 
 	private static final int columna_nombre = 0;
 	private static final int columna_legajoMed = 1;
-	private static final int columna_obras = 2;
-	private static final int columna_costo = 3;
+	private static final int columna_costo = 2;
 	
-	private String[] nombresColumnas = {"Nombre","Legajo", "Obras", "Costo"};
+	private String[] nombresColumnas = {"Nombre", "Legajo", "Costo"};
 	@SuppressWarnings("rawtypes")
-	private Class[] tiposColumnas = {String.class,Integer.class, String.class, Integer.class};
+	private Class[] tiposColumnas = {String.class,Integer.class, Integer.class};
 	private List<Medico> contenido;
 	
 	public MedicoTableModel() {
@@ -45,9 +44,6 @@ public class MedicoTableModel extends AbstractTableModel{
 			break;
 		case columna_legajoMed:
 			result = m.getLegMedico();
-			break; 
-		case columna_obras:
-			result = m.getObraSocial();
 			break;
 		case columna_costo:
 			result = m.isCobra();

@@ -6,7 +6,6 @@ public class Usuario {
 	protected String password;
 	protected String nya;
 	protected String fecha_nac;
-	protected String obraSocial;
 	protected int tipo_usu; //1 a (administrador) , 2 m (medico), 3 p (paciente) 
 	
 	public Usuario() {
@@ -14,13 +13,12 @@ public class Usuario {
 	}
 
 	//constructor
-	public Usuario(int dni, String password, String nya, String fecha_nac, String obraSocial, int tipo_usu){
+	public Usuario(int dni, String password, String nya, String fecha_nac, int tipo_usu){
 		this.dni=dni;
 		this.password=password;
 		this.nya=nya;
 		this.fecha_nac=fecha_nac;
 		this.tipo_usu=tipo_usu;
-		this.obraSocial=obraSocial;
 	}
 
 	//click derecho, Source, Generate Getters and Setters
@@ -56,14 +54,6 @@ public class Usuario {
 		this.fecha_nac = fecha_nac;
 	}
 
-	public String getObraSocial() {
-		return obraSocial;
-	}
-
-	public void setObraSocial(String obraSocial) {
-		this.obraSocial = obraSocial;
-	}
-
 	public int getTipo_usu() {
 		return tipo_usu;
 	}
@@ -71,6 +61,4 @@ public class Usuario {
 	public void setTipo_usu(int tipo_usu) {
 		this.tipo_usu = tipo_usu;
 	}
-	
-	
 } 

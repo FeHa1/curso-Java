@@ -14,7 +14,7 @@ public class Medico extends Usuario{
 	
 	public Medico(int legMedico, double cobra)  {
 		
-        super(legMedico, obtenerUsuario(legMedico).getPassword(), obtenerUsuario(legMedico).getNya(), obtenerUsuario(legMedico).getFecha_nac(), obtenerUsuario(legMedico).getObraSocial(), obtenerUsuario(legMedico).getTipo_usu());
+        super(legMedico, obtenerUsuario(legMedico).getPassword(), obtenerUsuario(legMedico).getNya(), obtenerUsuario(legMedico).getFecha_nac(), obtenerUsuario(legMedico).getTipo_usu());
         this.legMedico = legMedico;
         this.cobra = cobra;
     }
@@ -45,7 +45,7 @@ public class Medico extends Usuario{
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Usuario x = new Usuario(404, "error", "error", "error", "error", 404);
+			Usuario x = new Usuario(404, "error", "error", "error", 404);
 			return x;
 		}
 	}

@@ -19,7 +19,7 @@ public class TurnoDAO extends BaseDAO<Turno>{
 		String hora = UnTurno.getHora();
 		int consultorio = UnTurno.getConsultorio();
 		
-		return ("INSERT INTO TURNO (dni, legMedico, turno, fecha, hora, consultorio) VALUES ('"	+ dni + "', '" + legMedico + "', '" + turno + "', '" + fecha + "', '" + hora + "', '" + consultorio + "')");
+		return ("INSERT INTO TURNOS (dni, legMedico, turno, fecha, hora, consultorio) VALUES ('"	+ dni + "', '" + legMedico + "', '" + turno + "', '" + fecha + "', '" + hora + "', '" + consultorio + "')");
 	}
 
 	
@@ -44,7 +44,7 @@ public class TurnoDAO extends BaseDAO<Turno>{
 	
 	@Override
 	protected String BusquedaSimpleSqlString(int turno) {
-		return "SELECT * FROM turnos WHERE turno = '" + turno + "'";
+		return "SELECT * FROM TURNOS WHERE turno = '" + turno + "'";
 	}
 	
 	
@@ -89,11 +89,11 @@ public class TurnoDAO extends BaseDAO<Turno>{
 
 	@Override
 	protected String listaStringSql() {
-		return "SELECT * FROM turnos";
+		return "SELECT * FROM TURNOS";
 	}
 	
 	@Override
 	protected String BorrarStringSql(int turno) {
-		return "DELETE FROM turnos WHERE turno = '" + turno + "'";
+		return "DELETE FROM TURNOS WHERE turno = '" + turno + "'";
 	}
 }

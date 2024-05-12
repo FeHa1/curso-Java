@@ -144,7 +144,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
         panelPrincipal.add(horaComboBox);
         
         //campo consultorio
-        JLabel consultorio = new JLabel("nro_consultorio: ");
+        JLabel consultorio = new JLabel("consultorio: ");
 		panelPrincipal.add(consultorio);
         this.consultorioComboBox = new JComboBox<>();
         for (int i = 1; i <= 30; i++) {
@@ -189,7 +189,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 			String hora = (String) horaComboBox.getSelectedItem();
 			Integer consultorio = (Integer) consultorioComboBox.getSelectedItem();
 			
-			if(verificarValidezDeTurno(consultorio, fecha, hora, med, usu)) { //ésta parte debería ser '(consultorio,fecha,hora,med,usu)' pero todavia no tengo el consultorio
+			if(verificarValidezDeTurno(consultorio, fecha, hora, med, usu)) {
 				//guardar turno
 				try {
 					Turno tur= new Turno(usu.getDni(), med.getLegMedico(), generarTurnoNuevo(), fecha, hora, consultorio); 
@@ -292,7 +292,6 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 		Integer veriflvl=0;
 		
 		
-		/*me salen error éstos porque todavia no puse el consultorio*/
 		boolean loc1=verificarDisponibilidadConsultorio(lista, fecha,consultorio);
 		boolean loc2=verificarQueElMedicoNoEsteEnOtroConsultorio(lista, fecha, consultorio, med.getLegMedico());
 		boolean loc3=elMedicoEstaEnElConsultorio(lista, fecha, consultorio, med.getLegMedico());

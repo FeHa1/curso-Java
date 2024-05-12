@@ -27,7 +27,6 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 	
 	//campos
 	private JTextField campoLegajo;
-	private JTextField campoObras;
 	private JTextField campoCostoXConsulta;
 	
 	public TablaMedicoPanel() {
@@ -41,8 +40,6 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 		//campos
 		this.campoLegajo = new JTextField();
 		agregarCampoCarga("legajo:", campoLegajo);
-		this.campoObras = new JTextField();
-		agregarCampoCarga("obras:", campoObras);
 		this.campoCostoXConsulta = new JTextField();
 		agregarCampoCarga("Costo:", campoCostoXConsulta);
 		//tabla
@@ -50,7 +47,6 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 		tablaMedicos = new JTable(modelo);
 		scrollPaneParaTabla = new JScrollPane(tablaMedicos);
 		this.add(scrollPaneParaTabla);
-		
 	}
 	
 	@Override
@@ -74,31 +70,23 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 					if(!validarNum(leg)) {error=error+"error de legajo usuario no encontrado";}
 					verifleg = (validarNum(leg)&&validarLeg(leg));
 				} catch (Exception e2) {
-					error=error+"error de legajo usuario no encontrado";
+					error = error + "error de legajo usuario no encontrado";
 					verifleg = false;
 				}
 				
 				if(!validarNum(leg)) {
-					error=error+"error de legajo usuario fuera de rango";
+					error = error + "error de legajo usuario fuera de rango";
 				}
 				
 				verifcosto = validarNum(costo);
 				if(!validarNum(costo)) {
-					error=error+" costo fuera de rango,";
+					error = error + "costo fuera de rango,";
 				}
 			
 			} catch (Exception e2) {
 				error=error+" solo es posible numeros en leg. y costo,";
 				verif= false;	
 			}
-				
-			//validacion de strings
-			String obr = this.campoObras.getText();
-			boolean verifnom = validarStr(obr);
-			
-			if(!validarStr(obr)) {
-				error=error+"error obras usar a-z o ','";
-			}		
 			
 			//si todo esta validado correctamente se ejecuta la carga
 			if(verif && verifcosto && verifleg ) {
@@ -154,10 +142,10 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 				this.servicio.eliminar(x);//borro el estatus de medico
 				UsuarioService servUsu = new UsuarioService(); 
 				Usuario usu= servUsu.mostrar(x);
-				if (usu.getTipo_usu()==2)//remuevo permisos
-					{usu.setTipo_usu(3); /*ME TENGO QUE FIJAR ÉSTO CON TOMI*/
+				if (usu.getTipo_usu()==2) {//remuevo permisos
+					usu.setTipo_usu(3); 
 					servUsu.modificar(usu);
-					}
+				}
 				
 			} catch (DAOException | ServiceException e1) {			
 				e1.printStackTrace();

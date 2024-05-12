@@ -16,7 +16,7 @@ public class MedicoDAO extends BaseDAO<Medico>{
 		int legajo = entidad.getLegMedico();
         double cobra = entidad.isCobra();
         
-		return "INSERT INTO medicos(legMedico, cobra) VALUES ('" + legajo + "', '" + cobra + "')";
+		return "INSERT INTO MEDICOS(legMedico, cobra) VALUES ('" + legajo + "', '" + cobra + "')";
 	}
 	
 	@Override
@@ -24,20 +24,19 @@ public class MedicoDAO extends BaseDAO<Medico>{
 		int legajo = entidad.getLegMedico();
         double cobra = entidad.isCobra();
         
-		return "UPDATE medicos set (legMedico, cobra) VALUES ('" + legajo + "', '" + cobra + "')";
+		return "UPDATE MEDICOS set (legMedico, cobra) VALUES ('" + legajo + "', '" + cobra + "')";
 	}
 
 	@Override
 	protected String BusquedaSimpleSqlString(int t) {
 		
-		return "SELECT * FROM medicos WHERE legMedico = '" + t + "'";
+		return "SELECT * FROM MEDICOS WHERE legMedico = '" + t + "'";
 	}
 	
 	//TENGO QUE PROBAR ÉSTA ENTIDAD CUANDO TENGA LA BASE DE DATOS PORQUE TIRA ERROR
 	@Override
 	protected Medico resultsetToObject(ResultSet rs) throws SQLException {
 		if (rs.next()) {
-
         	int legajo = rs.getInt("legMedico");
             double cobra = rs.getDouble("cobra");
             
@@ -70,12 +69,12 @@ public class MedicoDAO extends BaseDAO<Medico>{
 	@Override
 	protected String listaStringSql() {     
 		
-		return "SELECT * FROM medicos";
+		return "SELECT * FROM MEDICOS";
 	}
 	
 	@Override
 	protected String BorrarStringSql(int x) {
 		
-		return "DELETE FROM medicos WHERE legMedico = '" + x + "'";
+		return "DELETE FROM MEDICOS WHERE legMedico = '" + x + "'";
 	}	
 }

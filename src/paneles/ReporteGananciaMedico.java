@@ -45,7 +45,7 @@ public class ReporteGananciaMedico extends JPanel implements ActionListener{
         this.errorDisplay.setForeground(Color.green);
     	
     	
-    	// Configuraciï¿½n del panel y sus componentes aquï¿½
+    	// Configuracion del panel y sus componentes aqui
     	this.setLayout(new GridLayout(7,2));
         this.servmed=new MedicoService();
         this.servtur=new TurnoService();
@@ -69,7 +69,7 @@ public class ReporteGananciaMedico extends JPanel implements ActionListener{
 			mostrarerror("error de base de datos");
 		}
 
-        add(new JLabel("Mï¿½dico:"));
+        add(new JLabel("Medico:"));
         add(medicoComboBox);
         add(new JLabel("Fecha Inicio (dd/MM/yyyy):"));
         add(fechaInicioTextField);
@@ -98,7 +98,7 @@ public class ReporteGananciaMedico extends JPanel implements ActionListener{
 				Medico m = listaMedica.get(medicoComboBox.getSelectedIndex());
 				System.out.println(m.getNya());
 				int cantidad=calcularSumaTurnos(m.getLegMedico(), fechaInicioTextField.getText(), fechaFinTextField.getText());
-				mostrarGanancia(cantidad, m.isCobra()); //preguntarle a Tomi
+				mostrarGanancia(cantidad, m.isCobra());
 				mostrarerror(ok);
 				
 			} else {

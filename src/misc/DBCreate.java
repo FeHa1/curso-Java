@@ -12,13 +12,12 @@ public class DBCreate {
 			Connection c = DBManager.connect();
 	        Statement s = c.createStatement();
 	        
-	        String sql2 = "drop table users1";
-	        String sql = "CREATE TABLE USER" 
+	        String sql2 = "drop table USUARIOS";
+	        String sql = "CREATE TABLE USUARIOS" 
 	        			+ " (dni int not null,"
 	        			+ " password varchar(200) not null,"
 	        			+ " nya varchar(200) not null,"
 	        			+ " fecha_nac varchar(200) not null,"
-	        			+ " obraSocial varchar(200) not null,"
 	        			+ " tipo_usu int not null,"
 	        			+ " PRIMARY KEY (dni))";
 	        
@@ -37,12 +36,13 @@ public class DBCreate {
 			Connection c = DBManager.connect();
 	        Statement s = c.createStatement();
 	        
+	        String sql = "drop table MEDICOS";
 	        String sql2 = "CREATE TABLE MEDICOS" 
 	        			+ " (legMedico int not null," 
-	        			+ " cobra int not null,"
+	        			+ " cobra double not null,"
 	        			+ " PRIMARY KEY (legMedico))";
-	        			//no puse la obra social porque yo la tengo en el usuario
 	        
+	        s.executeUpdate(sql);
 	        s.executeUpdate(sql2);
 	        c.commit();
 	        
@@ -57,8 +57,8 @@ public class DBCreate {
 			Connection c = DBManager.connect();
 	        Statement s = c.createStatement();
 	        
-	        String sql2 = "drop TABLE turnos";
-	        String sql = "CREATE TABLE turnos" 
+	        //String sql2 = "drop TABLE TURNOS";
+	        String sql = "CREATE TABLE TURNOS" 
 	        			+ " (dni int not null,"
 	        			+ " legMedico int not null,"
 	        			+ " turno int not null,"
@@ -67,7 +67,7 @@ public class DBCreate {
 	        			+ " consultorio int not null,"
 	        			+ " PRIMARY KEY (turno))";
 	        
-	        s.executeUpdate(sql2);
+	        //s.executeUpdate(sql2);
 	        s.executeUpdate(sql);
 	        c.commit();
 	        		
@@ -82,14 +82,14 @@ public class DBCreate {
 			Connection c = DBManager.connect();
 	        Statement s = c.createStatement();
 	        
-	        String sql = "drop table turnos";
+	        String sql = "drop table TURNOS";
 	        
 	        s.executeUpdate(sql);
 	        c.commit();
 	        
 		}catch(SQLException e){
 			
-			System.out.println("no se creo la tabla:"+e.getMessage());
+			System.out.println("no se creo la tabla: " + e.getMessage());
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class DBCreate {
 			Connection c = DBManager.connect();
 	        Statement s = c.createStatement();
 	        
-	        String sql = "insert into USERS1 (dni,pass,nya,fecha_nac,obra,tipo_user) values ('1','admin','admin','00/00/0000','TEST','1')";
+	        String sql = "insert into USUARIOS (dni, password, nya, fecha_nac, tipo_usu) values ('1','admin','admin','00/00/0000','1')";
 	        
 	        s.executeUpdate(sql);
 	        c.commit();

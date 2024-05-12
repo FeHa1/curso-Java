@@ -20,10 +20,12 @@ import tableModels.UsuarioTableModel;
 @SuppressWarnings({ "serial", "unused" })
 public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 
+	//tabla
 	private JTable tablaMedicos;
 	private UsuarioTableModel modelo;
-
 	private JScrollPane scrollPaneParaTabla;
+	
+	//servicio
 	private UsuarioService servicio;
 	
 	//Campos
@@ -48,23 +50,19 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 		
 		//password
 		this.campoPass = new JTextField();
-		agregarCampoCarga("pass: ", this.campoDni);
+		agregarCampoCarga("pass: ", this.campoPass);
 		
 		//nombre
 		this.campoNya = new JTextField();
-		agregarCampoCarga("Nombre completo: ",this.campoDni);
-		
-		//obra social
-		this.campoObra = new JTextField(); 
-		agregarCampoCarga("Obra Social: ", this.campoDni);
+		agregarCampoCarga("Nombre completo: ",this.campoNya);
 		
 		//fecha nacimiento
 		this.campoFechaNac = new JTextField();
-		agregarCampoCarga("Fecha de nacimiento: ", this.campoDni);
+		agregarCampoCarga("Fecha de nacimiento: ", this.campoFechaNac);
 		
 		//tabla usuario
 		modelo = new UsuarioTableModel();
-		tablaMedicos = new JTable();
+		tablaMedicos = new JTable(modelo);
 		scrollPaneParaTabla = new JScrollPane(tablaMedicos);
 		this.add(scrollPaneParaTabla);		
 	}
@@ -92,20 +90,10 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 			String password = this.campoPass.getText();
 			String nya = this.campoNya.getText();
 			String fechaNac = this.campoFechaNac.getText();
-			String obra = this.campoObra.getText();
-			
-			if (obra.length()==0) {
-				obra="sin obra";
-			}
 			
 			//validar
 			if(!validarStr(nya)) {
 				error=error+"nombre no valido,";
-				verif=false;
-			}
-		
-			if(!validarStr(obra)) {
-				error=error+"obra no valida,";
 				verif=false;
 			}
 			
@@ -117,7 +105,7 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 			//si todo esta validado correctamente se ejecuta la carga
 			if(verif) {
 				//medico
-				Usuario x1 = new Usuario(dni, password, nya.toLowerCase(), fechaNac, obra.toLowerCase(), 3);
+				Usuario x1 = new Usuario(dni, password, nya.toLowerCase(), fechaNac, 3);
 				//cargar datos en tabla
 				modelo.getContenido().add(x1); //TODO: cambiar el metodo de obtencion para que se parezca al de refresh
 				modelo.fireTableDataChanged(); 
@@ -177,8 +165,8 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 		try {
 			lista = this.servicio.listaTodosLosObjetos();
 			System.out.println(lista);
-			modelo.setContenido(lista); //es del 'UsuarioTableModel' que despues lo tengo que hacer
-			modelo.fireTableDataChanged(); //es del 'UsuarioTableModel' que despues lo tengo que hacer
+			modelo.setContenido(lista); 
+			modelo.fireTableDataChanged();
 			mostrarerror(ok);
 			
 		} catch (DAOException e1) {
@@ -201,7 +189,9 @@ public class TablaUsuarioPanel extends AbstractCRUD implements ActionListener{
 	
 	public static boolean validarStr(String cadena) {
 		    
-		if (cadena.length()==0) {return false;}
+		if (cadena.length()==0) {
+			return false;
+		}
 	    
 		for (int i = 0; i < cadena.length(); i++) {
 	        char caracter = cadena.charAt(i);

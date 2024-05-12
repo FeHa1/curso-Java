@@ -13,11 +13,11 @@ public class TurnoTableModel extends AbstractTableModel {
 	private static final int columna_legajoMedico = 0;
 	private static final int columna_fecha = 1;
 	private static final int columna_hora = 2;
-	private static final int columna_nroConsultorio = 3;
+	private static final int columna_consultorio = 3;
 	private static final int columna_dniPaciente = 4;
 	private static final int columna_iDTurno = 5;
 	
-	private String[] nombresColumnas = {"legajoMedico", "fecha", "hora", "dni", "turno"}; //"nroConsultorio"
+	private String[] nombresColumnas = {"legajoMedico", "fecha", "hora", "nroConsultorio", "dni", "turno"}; 
 	@SuppressWarnings("rawtypes")
 	private Class[] tiposColumnas = {Integer.class, String.class,String.class,String.class,String.class, Integer.class};
 	private List<Turno> contenido;
@@ -49,10 +49,9 @@ public class TurnoTableModel extends AbstractTableModel {
 		case columna_hora:
 			result = m.getHora();
 			break;
-			/*	todavia no tengo consultorio
-		case columna_nroConsultorio:
-			result = m.getNroConsultorio();
-			break;*/
+		case columna_consultorio:
+			result = m.getConsultorio();
+			break;
 		case columna_dniPaciente:
 			result = m.getDni();
 			break;
