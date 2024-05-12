@@ -28,7 +28,7 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
 		String fecha_nac = e.getFecha_nac();
 		int tipo_usu = e.getTipo_usu();
 		
-		return ("UPDATE USUARIOS SET pass = '" + password 
+		return ("UPDATE USUARIOS SET password = '" + password 
 				+ "', nya = '" + nya 
 				+ "', fecha_nac = '" + fecha_nac 
 				+ "', tipo_usu = '" + tipo_usu 

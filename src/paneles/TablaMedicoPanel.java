@@ -84,7 +84,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 				}
 			
 			} catch (Exception e2) {
-				error=error+" solo es posible numeros en leg. y costo,";
+				error = error + "solo es posible numeros en leg. y costo,";
 				verif= false;	
 			}
 			
@@ -99,7 +99,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 				
 	
 				Usuario usu= servUsu.mostrar(leg);
-				if (usu.getTipo_usu()==3){
+				if (usu.getTipo_usu()==1){
 					usu.setTipo_usu(2);
 				}
 				
@@ -143,7 +143,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 				UsuarioService servUsu = new UsuarioService(); 
 				Usuario usu= servUsu.mostrar(x);
 				if (usu.getTipo_usu()==2) {//remuevo permisos
-					usu.setTipo_usu(3); 
+					usu.setTipo_usu(1); 
 					servUsu.modificar(usu);
 				}
 				
@@ -203,8 +203,25 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 		
 		return true;
 	 }
-	    
 	
+	
+	public boolean validarLeg(int leg) {
+	    UsuarioService x = new UsuarioService();
+	    try {
+	        Usuario usuario = x.mostrar(leg);
+	        if (usuario != null && usuario.getDni() > 0) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    } catch (DAOException e) {
+	        e.printStackTrace();
+	        return false;
+	    }   
+	}
+
+	    
+	/*
 	public boolean validarLeg(int leg) {
 		UsuarioService x= new UsuarioService();
 		try {
@@ -219,4 +236,5 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 			return false;
 		}	
 	}
+	*/
 }

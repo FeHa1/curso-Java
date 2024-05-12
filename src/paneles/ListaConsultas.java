@@ -5,6 +5,8 @@ import java.awt.Label;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import entidades.*;
@@ -32,6 +34,7 @@ public class ListaConsultas extends JPanel{
 			this.tableModel = new DefaultTableModel();
 			tableModel.addColumn("Fecha");
 	        tableModel.addColumn("Hora");
+	        tableModel.addColumn("Consultorio");
 	        tableModel.addColumn("Médico");
 	        tableModel.addColumn("Paciente");
 	        
@@ -57,6 +60,10 @@ public class ListaConsultas extends JPanel{
 	        	}
 	        }
 	        
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane, BorderLayout.CENTER);
+	        
 		}catch (DAOException e) {
 			e.printStackTrace();
 			this.add(new Label("Error base de datos"));
@@ -66,8 +73,9 @@ public class ListaConsultas extends JPanel{
 	private void cargarTurnoTabla(Turno turno) throws DAOException{
 		String fecha = turno.getFecha();
 		String hora = turno.getHora();
+		int consultorio = turno.getConsultorio();
 		String medicoNombreApellido = servicioMedico.mostrar(turno.getLegMedico()).getNya();
 		String pacienteNombreApellido = servicioUsuario.mostrar(turno.getDni()).getNya(); //tengo que ver que ésto no me genere conflicto porque 'getDni' es el método tanto en Usuario como en Turno
-		tableModel.addRow(new Object[]{fecha, hora, medicoNombreApellido,pacienteNombreApellido});
+		tableModel.addRow(new Object[]{fecha, hora, consultorio, medicoNombreApellido, pacienteNombreApellido});
 	}
 }

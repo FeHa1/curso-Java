@@ -72,6 +72,7 @@ public class PanelManager implements ActionListener{
 	    this.nav= new JPanel();
 	    frame.add(nav, BorderLayout.NORTH);
 	
+	    
 	    this.vista= new JPanel();
 	    frame.add(vista, BorderLayout.CENTER);
 	    
@@ -171,8 +172,9 @@ public class PanelManager implements ActionListener{
 			vista.add(consultarTurnoPacienteButton);
 		}
 		
-		this.consultarTurnoPropioButton = new JButton("Consultar turno de paciente");
+		this.consultarTurnoPropioButton = new JButton("Consultar turno propio");
 		consultarTurnoPropioButton.addActionListener(this);
+		vista.add(consultarTurnoPropioButton);
 		
 		vista.validate();
     	vista.repaint();
@@ -188,10 +190,10 @@ public class PanelManager implements ActionListener{
 		}
 		
 		else if(e.getSource() == adminButton) {
-			mostrar(new TablaMedicoPanel());
+			mostrar(new PanelAdministrarTurno());
 		}
 		
-		else if(e.getSource() == consultarTurnoPropioButton) {
+		else if(e.getSource() == consultarTurnosButton) {
 			mostrar(new ListaConsultas(sesionUsu, 1));
 		}
 		
@@ -199,16 +201,12 @@ public class PanelManager implements ActionListener{
 			mostrar(new ListaConsultas(sesionUsu, 2));
 		}
 		
-		else if(e.getSource() == consultarTurnosButton) {
+		else if(e.getSource() == consultarTurnoPropioButton) {
 			mostrar(new ListaConsultas(sesionUsu, 3));
 		}
 		
 		else if(e.getSource() == medicoButton) {
 			mostrar(new TablaMedicoPanel());
-		}
-		
-		else if(e.getSource() == adminButton) {
-			//mostrar(new PanelAdministrarTurnos()); //todavia tengo que hacerlo
 		}
 		
 		else if(e.getSource() == reporteButton) {

@@ -87,7 +87,7 @@ public class ReporteGananciaMedico extends JPanel implements ActionListener{
         this.revalidate();
         this.repaint();
     }
-    
+   
     
     @Override
 	public void actionPerformed(ActionEvent e) {

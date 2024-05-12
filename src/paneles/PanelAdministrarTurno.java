@@ -100,6 +100,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 		
         panelPrincipal.add(medicoComboBox);
         
+        
         //Etiqueta para seleccionar un usuario
  		JLabel usuarioLabel = new JLabel("Usuario: ");
  		panelPrincipal.add(usuarioLabel);
@@ -234,7 +235,6 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 		
 	}
 	
-	
 	//refrescar tabla
 	public void refresh() {
 		List<Turno> lista;
@@ -256,7 +256,6 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 			mostrarerror("ERROR Base de datos");
 		} 
 	}
-	
 	
 	//display de error
 	public void mostrarerror(String x) {
@@ -354,7 +353,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 		return true;
 	}
 	
-	//como no tengo consultorio éstas verificaciones todavia no las necesito
+
 	public boolean verificarDisponibilidadConsultorio(List<Turno> lista, String fecha, int consultorio) {
 		for(Turno turn :lista) {
 			if(turn.getFecha().equals(fecha)) {
