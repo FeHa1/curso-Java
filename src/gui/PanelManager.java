@@ -126,7 +126,7 @@ public class PanelManager implements ActionListener{
 		this.logoutButton = new JButton("LogOut");
     	logoutButton.addActionListener(this);
     	nav.add(logoutButton);
-    	//nav.add(new Label("                  bienvenido: "+ sesionUsu.getNya()));
+    	nav.add(new Label("                  bienvenido: "+ sesionUsu.getNya()));
 		nav.revalidate();
 		nav.repaint();
 	}

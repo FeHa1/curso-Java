@@ -97,9 +97,8 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 				//cambiar permiso de usuario
 				UsuarioService servUsu = new UsuarioService(); // recordar que todo esto esta encerrado dentro de un try, en caso de que falle la base de datos
 				
-	
 				Usuario usu= servUsu.mostrar(leg);
-				if (usu.getTipo_usu()==1){
+				if (usu.getTipo_usu()==3){
 					usu.setTipo_usu(2);
 				}
 				
@@ -143,7 +142,7 @@ public class TablaMedicoPanel extends AbstractCRUD implements ActionListener{
 				UsuarioService servUsu = new UsuarioService(); 
 				Usuario usu= servUsu.mostrar(x);
 				if (usu.getTipo_usu()==2) {//remuevo permisos
-					usu.setTipo_usu(1); 
+					usu.setTipo_usu(3); 
 					servUsu.modificar(usu);
 				}
 				

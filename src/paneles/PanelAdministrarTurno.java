@@ -193,7 +193,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 			if(verificarValidezDeTurno(consultorio, fecha, hora, med, usu)) {
 				//guardar turno
 				try {
-					Turno tur= new Turno(usu.getDni(), med.getLegMedico(), generarTurnoNuevo(), fecha, hora, consultorio); 
+					Turno tur = new Turno(usu.getDni(), med.getLegMedico(), generarTurnoNuevo(), fecha, hora, consultorio); 
 					this.turnoService.guardar(tur);
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -243,6 +243,7 @@ public class PanelAdministrarTurno extends JPanel implements ActionListener{
 			for (Turno elem: lista) {
 				System.out.println(elem.toString());
 			}
+			
 			System.out.println(lista);
 			modelo.setContenido(lista);
 			modelo.fireTableDataChanged();

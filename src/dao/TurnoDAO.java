@@ -7,7 +7,6 @@ import java.util.List;
 
 import entidades.Turno;
 
-//me salta error porque dice que faltan métodos pero es porque los que no entiendo están comentados
 public class TurnoDAO extends BaseDAO<Turno>{
 	
 	@Override

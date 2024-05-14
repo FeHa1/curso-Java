@@ -33,7 +33,6 @@ public class MedicoDAO extends BaseDAO<Medico>{
 		return "SELECT * FROM MEDICOS WHERE legMedico = '" + t + "'";
 	}
 	
-	//TENGO QUE PROBAR ÉSTA ENTIDAD CUANDO TENGA LA BASE DE DATOS PORQUE TIRA ERROR
 	@Override
 	protected Medico resultsetToObject(ResultSet rs) throws SQLException {
 		if (rs.next()) {

@@ -60,7 +60,7 @@ public abstract class AbstractCRUD extends JPanel implements ActionListener{
 		this.add(botonera);//agregar bottonera al panel principal
 	}
 	
-	protected void agregarCampoCarga(String nombre,JTextField campo) {
+	protected void agregarCampoCarga(String nombre, JTextField campo) {
 		JPanel comboCampo = new JPanel();
 		comboCampo.setLayout(new GridLayout(1,2));
 		comboCampo.setSize(500,200);
